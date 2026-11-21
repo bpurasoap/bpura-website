@@ -15,6 +15,49 @@
   <meta property="og:description" content="Pure Touch. Pure Love. Handcrafted soaps by B PURA women's community.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vishalgiri4455-cyber.github.io/bpura-website/">
+  <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vishalgiri4455-cyber.github.io/bpura-website/">
+
+<!-- Google & AI Structured Data (JSON-LD Schema) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "name": "B PURA women's community",
+      "description": "Natural handcrafted bathing soaps (Sandalwood, Neem, Aloe Vera, Lemon) made by B PURA women's community in Gurugram. Available in 100g single bars @ ₹99, Pack of 6 @ ₹499, and wholesale bulk orders.",
+      "url": "https://vishalgiri4455-cyber.github.io/bpura-website/",
+      "telephone": "+91-9582730854",
+      "email": "bpura.love07@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mohammadpur Jharsa, Sector 36",
+        "addressLocality": "Gurugram",
+        "addressRegion": "Haryana",
+        "addressCountry": "IN"
+      },
+      "priceRange": "₹99 - ₹499"
+    },
+    {
+      "@type": "Product",
+      "name": "B PURA Natural Handcrafted Sandalwood Soap (100g)",
+      "brand": {
+        "@type": "Brand",
+        "name": "B PURA women's community"
+      },
+      "description": "100g handcrafted natural Sandalwood (Chandan) soap bar made with natural oils and glycerin for glowing, soft, and clear skin.",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "price": "99",
+        "availability": "https://schema.org",
+        "url": "https://vishalgiri4455-cyber.github.io/bpura-website/"
+      }
+    }
+  ]
+}
+</script>
 
   <!-- Razorpay Official Checkout SDK Script -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -466,7 +509,7 @@ button{cursor:pointer}
       <div class="field"><label for="adminPassword">ADMIN PASSWORD</label><input id="adminPassword" type="password" placeholder="Password"></div>
       <button class="btn" onclick="adminLogin()">Unlock Dashboard</button>
       <div class="form-error" id="adminError"></div>
-      <p class="notice">Default password: <b>admin123</b></p>
+      <p class="notice">Authorized personnel only.</p>
     </div>
     <div id="adminPanel" class="hidden">
       <h3>Editable Store Settings</h3>
@@ -924,9 +967,18 @@ function toast(msg) {
 function openAdmin() { document.getElementById("adminModal").classList.add("show"); }
 function closeAdmin() { document.getElementById("adminModal").classList.remove("show"); }
 
-function adminLogin() {
+async function adminLogin() {
   const pass = document.getElementById("adminPassword").value;
-  if(pass === "admin123") {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(pass);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  // Yahan apne naye password ka SHA-256 hash paste karein
+  const savedHash = "93d13c8e7889413accd0f81f4e2bb9956eaac96eb5cc67fd208a5a065144d65b";
+
+  if(hashHex === savedHash) {
     document.getElementById("adminLogin").classList.add("hidden");
     document.getElementById("adminPanel").classList.remove("hidden");
     loadAdminData();
@@ -998,5 +1050,10 @@ function clearOrders() {
 
 window.onload = init;
 </script>
+  <section aria-label="About B PURA Soaps and How to Order" style="max-width: 900px; margin: 20px auto; padding: 16px; font-size: 14px; color: #444; background: #faf8f5; border-radius: 8px;">
+  <h2 style="font-size: 18px; margin-bottom: 8px;">About B PURA Women's Community Handcrafted Soaps</h2>
+  <p><strong>B PURA women's community</strong> is a Gurugram-based women's initiative (Mohammadpur Jharsa, Sector 36, Gurugram) crafting 100% natural, handmade bathing soap bars (100g each at ₹99). Our four handcrafted varieties include <strong>Sandalwood Soap</strong>, <strong>Neem Soap</strong>, <strong>Aloe Vera Soap</strong>, and <strong>Lemon Soap</strong> made with natural oils, glycerin, and skin-nourishing botanicals.</p>
+  <p style="margin-top: 8px;"><strong>How to Order B PURA Soaps:</strong> Customers can order directly on our official website (<a href="https://vishalgiri4455-cyber.github.io/bpura-website/">vishalgiri4455-cyber.github.io/bpura-website</a>) using Razorpay (UPI, Cards, Netbanking) or direct UPI, or message us on WhatsApp at <strong>+91 9582730854</strong> for single bars (₹99), Pack of 6 Combo (₹499), and wholesale bulk orders (minimum 10 soaps, 15%–20% discount). Delivery takes 5–7 days.</p>
+</section>
 </body>
 </html>
